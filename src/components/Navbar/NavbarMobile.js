@@ -11,12 +11,6 @@ function NavbarMobile({ open }) {
     <Collapse in={Boolean(open)} timeout="auto" unmountOnExit>
       <MKBox width="calc(100% + 1.625rem)" my={2} ml={-2}>
         <NavbarItem key="Inicio" name="Inicio" icon={<Icon>home</Icon>} route="/" />
-        <NavbarItem
-          key="Registrar Pet"
-          name="Registrar Pet"
-          icon={<Icon>article</Icon>}
-          route="/pages/pet-register"
-        />
       </MKBox>
     </Collapse>
   );

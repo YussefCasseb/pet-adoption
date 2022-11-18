@@ -9,12 +9,33 @@ import MKButton from "components/MKButton";
 import MKTypography from "components/MKTypography";
 import MKAlert from "components/MKAlert";
 
-function Contact() {
+function Contact(props) {
   const [showAlert, setShowAlert] = useState(false);
+
+  // eslint-disable-next-line react/prop-types
+  const { id, imagens } = props;
 
   const handleShowAlert = (event) => {
     event.preventDefault();
-    setShowAlert(true);
+
+    const formValues = new FormData(event.target);
+
+    const body = {
+      animal_id: id,
+      nome: formValues.get("nome"),
+      email: formValues.get("email"),
+      cidade: formValues.get("cidade"),
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    fetch("http://localhost:90/pet-adoption-backend/adocao/solicitar", requestOptions)
+      .then((response) => response.json())
+      .then(() => setShowAlert(true));
   };
 
   return (
@@ -44,7 +65,8 @@ function Contact() {
                     `${linearGradient(
                       rgba(gradients.dark.main, 0.0),
                       rgba(gradients.dark.state, 0.0)
-                    )}, url(https://www.amigonaosecompra.com.br/unsafe/1200x0/0d0d7fe5-b177-4b74-98ba-1d3293885c84/89783254-5be4-4b33-863b-d8a63c24cfa1/1c584dfe-1cf9-4ff0-bf49-395b586f37f1.jpeg?v=63819961476)`,
+                      // eslint-disable-next-line react/prop-types
+                    )}, url(${imagens.length > 0 ? imagens[0].img_url : ""})`,
                   backgroundSize: "cover",
                 }}
               />
@@ -63,29 +85,35 @@ function Contact() {
                     <Grid container>
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
+                          name="nome"
                           variant="standard"
                           label="Nome"
                           placeholder="Nome Completo"
                           InputLabelProps={{ shrink: true }}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
+                          name="email"
                           variant="standard"
                           label="E-mail"
                           placeholder="Informe um e-mail para contato"
                           InputLabelProps={{ shrink: true }}
                           fullWidth
+                          required
                         />
                       </Grid>
                       <Grid item xs={12} pr={1} mb={6}>
                         <MKInput
+                          name="cidade"
                           variant="standard"
-                          label="Localização"
+                          label="Cidade"
                           placeholder="Informe a cidade e estado onde mora"
                           InputLabelProps={{ shrink: true }}
                           fullWidth
+                          required
                         />
                       </Grid>
                     </Grid>

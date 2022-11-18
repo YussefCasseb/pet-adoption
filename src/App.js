@@ -8,8 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "assets/theme";
 
 import Home from "pages/Home";
-
-import routes from "routes";
+import PetProfile from "pages/PetProfile";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -19,24 +18,11 @@ export default function App() {
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
 
-  const getRoutes = (allRoutes) =>
-    allRoutes.map((route) => {
-      if (route.collapse) {
-        return getRoutes(route.collapse);
-      }
-
-      if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
-      }
-
-      return null;
-    });
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Routes>
-        {getRoutes(routes)}
+        <Route path="/pages/pet-profile/:id" element={<PetProfile />} />
         <Route path="/" element={<Home />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

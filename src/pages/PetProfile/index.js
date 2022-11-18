@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import Card from "@mui/material/Card";
 
 import MKBox from "components/MKBox";
@@ -10,6 +13,32 @@ import Contact from "pages/PetProfile/sections/Contact";
 import bgImage from "assets/images/bg.jpg";
 
 function PetProfile() {
+  const { id } = useParams();
+  const [perfil, setPerfil] = useState({
+    id: "",
+    nome: "",
+    idade: "",
+    genero: "",
+    tipo: "",
+    porte: "",
+    descricao: "",
+    cidade: "",
+    imagens: [],
+    vacinas: [],
+  });
+
+  useEffect(() => {
+    fetch(`http://localhost:90/pet-adoption-backend/animal/perfil/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setPerfil(response);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <>
       <Navbar sticky />
@@ -40,9 +69,9 @@ function PetProfile() {
             boxShadow: ({ boxShadows: { xxl } }) => xxl,
           }}
         >
-          <Profile />
+          <Profile {...perfil} />
         </Card>
-        <Contact />
+        <Contact {...perfil} />
         <Footer />
       </MKBox>
     </>

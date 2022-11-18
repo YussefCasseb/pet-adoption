@@ -77,12 +77,6 @@ function Navbar({ brand, transparent, light, action, sticky, relative, center })
             mr={center ? "auto" : 0}
           >
             <NavbarItem key="Inicio" name="Inicio" icon={<Icon>home</Icon>} route="/" />
-            <NavbarItem
-              key="Registrar Pet"
-              name="Registrar Pet"
-              icon={<Icon>article</Icon>}
-              route="/pages/pet-register"
-            />
           </MKBox>
           <MKBox ml={{ xs: "auto", lg: 0 }}>
             {action &&
