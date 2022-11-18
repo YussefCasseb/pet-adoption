@@ -33,7 +33,7 @@ function Contact(props) {
       body: JSON.stringify(body),
     };
 
-    fetch("http://localhost:90/pet-adoption-backend/adocao/solicitar", requestOptions)
+    fetch("http://localhost/pet-adoption-backend/adocao/solicitar", requestOptions)
       .then((response) => response.json())
       .then(() => setShowAlert(true));
   };

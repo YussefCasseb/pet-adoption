@@ -28,7 +28,7 @@ function PetProfile() {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:90/pet-adoption-backend/animal/perfil/${id}`)
+    fetch(`http://localhost/pet-adoption-backend/animal/perfil/${id}`)
       .then((response) => response.json())
       .then((response) => {
         setPerfil(response);

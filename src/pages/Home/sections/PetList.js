@@ -11,7 +11,7 @@ function PetList() {
   const [animais, setAnimais] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:90/pet-adoption-backend/animal/listar")
+    fetch("http://localhost/pet-adoption-backend/animal/listar")
       .then((response) => response.json())
       .then((response) => {
         setAnimais(response);
